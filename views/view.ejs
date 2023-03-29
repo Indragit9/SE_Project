@@ -1,0 +1,88 @@
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td,
+  th {
+    border: 1px solid #000;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+</style>
+
+<h1>User</h1>
+<br />
+Name: <%=user.firstName%> <%=user.lastName%><br />
+Mobile: <%=user.mobile%><br />
+Email: <%=user.username%><br />
+
+
+<h1>Available places</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Select</th>
+      <th scope="col">Place name</th>
+      <th scope="col">City</th>
+      <th scope="col">State</th>
+      <th scope="col">Type</th>
+      <th scope="col">Capacity</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(record.length > 0){ %> <% record.forEach(function(element){ %> 
+        <% if(element.isOccupied==="No"){ %>
+            <tr>
+                <td scope="col"><form action="/view" method="post"><input type="checkbox" name="isSelect" id="isSelect" onclick="this.form.submit()"></form></td>
+                <td scope="col"><%= element.username %></td>
+                <td scope="col"><%= element.cityName %></td>
+                <td scope="col"><%= element.stateName %></td>
+                <td scope="col"><%= element.type %></td>
+                <td scope="col"><%= element.capacity %></td>
+                <td scope="col"><%= element.price %></td>
+            </tr>
+            <% } %>
+    <% }); %> <% } %>
+  </tbody>
+</table>
+<br>
+<h1>Selected places</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Place name</th>
+      <th scope="col">City</th>
+      <th scope="col">State</th>
+      <th scope="col">Type</th>
+      <th scope="col">Capacity</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if(record.length > 0){ %> <% record.forEach(function(element){ %> 
+        <% if(element.isOccupied===user.username){ %>
+            <tr>
+                <td scope="col"><%= element.username %></td>
+                <td scope="col"><%= element.cityName %></td>
+                <td scope="col"><%= element.stateName %></td>
+                <td scope="col"><%= element.type %></td>
+                <td scope="col"><%= element.capacity %></td>
+                <td scope="col"><%= element.price %></td>
+            </tr>
+            <% } %>
+    <% }); %> <% } %>
+  </tbody>
+
+</table>
+<br>
+<li><a href="/logout">Logout</a></li>
